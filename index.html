@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mau y Majo</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f5f5f5">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: normal;
+            color: #8B5A3C;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .menu-button {
+            background: linear-gradient(135deg, #8B5A3C 0%, #A0522D 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 90, 60, 0.3);
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 90, 60, 0.4);
+            background: linear-gradient(135deg, #A0522D 0%, #8B5A3C 100%);
+        }
+
+        .menu-button:active {
+            transform: translateY(0);
+        }
+
+        .heart-decoration {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(139, 90, 60, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .heart-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .heart-2 {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .heart-3 {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .heart-4 {
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-10px) rotate(5deg); opacity: 0.6; }
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .menu-container {
+                max-width: 300px;
+            }
+            
+            .heart-decoration {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-decoration heart-1">♡</div>
+    <div class="heart-decoration heart-2">♡</div>
+    <div class="heart-decoration heart-3">♡</div>
+    <div class="heart-decoration heart-4">♡</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Mau y Majo</h1>
+            <p class="subtitle">un poco de</p>
+        </div>
+        
+        <div class="menu-container">
+            <a href="mauymajo.html" class="menu-button">Nosotros</a>
+            <a href="carta.html" class="menu-button">Carta</a>
+            <a href="razones.html" class="menu-button">Razones</a>
+            <a href="galeria.html" class="menu-button">Galería</a>
+        </div>
+    </div>
+
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+    </script>
+</body>
+</html>

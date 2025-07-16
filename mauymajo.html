@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - Mau y Majo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #8B5A3C;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+        
+        .content {
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 40px;
+        }
+        
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            background: #8B5A3C;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-button:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+        
+        .heart {
+            display: inline-block;
+            color: rgba(139, 90, 60, 0.6);
+            margin: 0 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Nosotros</h1>
+        
+        <div class="content">
+            <p>Bienvenidos a nuestro pequeño rincón digital.</p>
+            <span class="heart">♡</span>
+            <p>Un lugar donde compartimos nuestros momentos especiales, nuestras historias y todo aquello que nos hace únicos como pareja.</p>
+            <span class="heart">♡</span>
+            <p>Cada página de este sitio está hecha con amor y dedicación, porque creemos que los pequeños detalles son los que hacen grande una relación.</p>
+        </div>
+        
+        <a href="index.html" class="back-button">← Volver al menú</a>
+    </div>
+</body>
+</html>
