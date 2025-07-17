@@ -5,29 +5,192 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería - Mau y Majo</title>
     <style>
-        /* ... tus estilos originales ... */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Georgia', 'Times New Roman', serif; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); min-height: 100vh; color: #333; }
-        .header { background: rgba(255, 255, 255, 0.98); padding: 20px 0; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); text-align: center; }
-        .logo { font-size: 1.8rem; font-weight: 600; color: #8B5A3C; text-decoration: none; }
-        .back-button { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: #8B5A3C; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; transition: all 0.3s ease; }
-        .back-button:hover { background: #A0522D; transform: translateY(-50%) translateY(-2px); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .gallery-title { text-align: center; font-size: 2.5rem; color: #8B5A3C; margin-bottom: 3rem; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .photo-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }
-        .photo-card:hover { transform: translateY(-5px); }
-        .photo-image { width: 100%; height: 250px; object-fit: cover; cursor: pointer; }
-        .photo-info { padding: 20px; text-align: center; }
-        .photo-date { color: #666; font-style: italic; }
-        .coming-soon { text-align: center; padding: 60px 20px; color: #666; font-style: italic; font-size: 1.2rem; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
-        .modal-content { margin: auto; display: block; width: 80%; max-width: 700px; max-height: 80%; object-fit: contain; }
-        .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
-        .close:hover, .close:focus { color: #bbb; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #8B5A3C;
+            text-decoration: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #8B5A3C;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #A0522D;
+            transform: translateY(-50%) translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #8B5A3C;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .photo-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .photo-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .photo-date {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        .upload-instructions {
+            background: rgba(255, 255, 255, 0.9);
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-instructions h3 {
+            color: #8B5A3C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .upload-instructions ol {
+            text-align: left;
+            color: #333;
+        }
+        
+        .upload-instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .upload-instructions code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .upload-instructions a {
+            color: #8B5A3C;
+            text-decoration: none;
+        }
+        
+        .upload-instructions a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Modal para ver imagen completa */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+        }
+        
         @media (max-width: 600px) {
-            .gallery-title { font-size: 2rem; }
-            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -36,50 +199,138 @@
         <a href="index.html" class="back-button">← Volver</a>
         <h1 class="logo">Galería</h1>
     </div>
+    
     <div class="container">
         <h2 class="gallery-title">Nuestros Momentos ♡</h2>
-        <div class="gallery-grid" id="galleryGrid"></div>
+        
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Las imágenes se cargarán automáticamente -->
+        </div>
+        
+        <!-- Instrucciones para agregar fotos -->
+        <div class="upload-instructions">
+            <h3>¿Cómo agregar nuevas fotos?</h3>
+            <ol>
+                <li>Ve al <a href="https://github.com/mauriciotxt-git/mauriciotxt-git.github.io" target="_blank">repositorio en GitHub</a></li>
+                <li>Entra a la carpeta <code>static/gallery/</code></li>
+                <li>Haz clic en "Add file" > "Upload files"</li>
+                <li>Arrastra tus fotos y haz commit</li>
+                <li>¡Las fotos aparecerán automáticamente aquí!</li>
+            </ol>
+        </div>
+        
         <div class="coming-soon">
             <p>Más fotos próximamente... ♡</p>
         </div>
     </div>
+    
     <!-- Modal -->
     <div id="imageModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
+    
     <script>
-        // Cargar fotos dinámicamente desde el JSON
-        fetch('static/gallery/gallery.json')
-            .then(response => response.json())
-            .then(data => {
-                const grid = document.getElementById('galleryGrid');
-                grid.innerHTML = '';
-                data.forEach(photo => {
-                    const card = document.createElement('div');
-                    card.className = 'photo-card';
-                    card.innerHTML = `
-                        <img src="${photo.src}" alt="${photo.alt}" class="photo-image" onclick="openModal('${photo.src}')">
-                        <div class="photo-info">
-                            <p class="photo-date">${photo.date}</p>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
+        // Lista de imágenes conocidas (actualiza esta lista cuando agregues nuevas fotos)
+        const images = [
+            {
+                filename: 'maumajo_20250715_7cf72bec.jpeg',
+                alt: 'El reencuentro',
+                date: '14/07/2025'
+            },
+            {
+                filename: 'mauymajo2_20250715_24fd746a.jpeg',
+                alt: 'Sanando',
+                date: '14/07/2025'
+            },
+            {
+                filename: 'mauymajo3_20250715.jpeg',
+                alt: 'Parque de diversiones',
+                date: '17/07/2025'
+            },
+            {
+                filename: 'maumajo4_20250715.jpeg',
+                alt: 'Cuando me llevaste a pasear',
+                date: '21/08/2022'
+            },
+            {
+                filename: 'mauymajo5_20250715.jpeg',
+                alt: 'Durmiendo juntos',
+                date: '2022'
+            },
+            {
+                filename: 'maumajo6_20250715.jpeg',
+                alt: 'Me veo increible',
+                date: '2022'
+            },
+            {
+                filename: 'mauymajo7_20250715.jpeg',
+                alt: 'En becas',
+                date: '2022'
+            },
+            {
+                filename: 'mauymajo8_20250715.jpeg',
+                alt: 'Tiendita',
+                date: '2022'
+            },
+            {
+                filename: 'maumajo9_20250715.jpeg',
+                alt: 'En la oficina de audivisuales',
+                date: '11/08/2022'
+            },
+            {
+                filename: 'maumajo10_20250715.jpeg',
+                alt: 'Novios en escalante',
+                date: '13/04/2023'
+            }
+            // Agrega aquí nuevas imágenes cuando las subas a GitHub
+        ];
+
+        // Cargar galería dinámicamente
+        function loadGallery() {
+            const galleryGrid = document.getElementById('gallery-grid');
+            
+            if (images.length === 0) {
+                galleryGrid.innerHTML = '<p class="coming-soon">No hay fotos aún. ¡Sube algunas siguiendo las instrucciones!</p>';
+                return;
+            }
+            
+            images.forEach(image => {
+                const photoCard = document.createElement('div');
+                photoCard.className = 'photo-card';
+                
+                photoCard.innerHTML = `
+                    <img src="static/gallery/${image.filename}" alt="${image.alt}" class="photo-image" onclick="openModal('static/gallery/${image.filename}')" onerror="this.parentElement.style.display='none'">
+                    <div class="photo-info">
+                        <p style="color: #8B5A3C; font-weight: 600; margin-bottom: 5px;">${image.alt}</p>
+                        <p class="photo-date">${image.date}</p>
+                    </div>
+                `;
+                
+                galleryGrid.appendChild(photoCard);
             });
+        }
+
         function openModal(src) {
             document.getElementById('imageModal').style.display = 'block';
             document.getElementById('modalImage').src = src;
         }
+        
         function closeModal() {
             document.getElementById('imageModal').style.display = 'none';
         }
+        
+        // Cerrar modal al hacer clic fuera de la imagen
         window.onclick = function(event) {
             const modal = document.getElementById('imageModal');
             if (event.target == modal) {
                 closeModal();
             }
         }
+        
+        // Cargar galería cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', loadGallery);
     </script>
 </body>
 </html>
+
