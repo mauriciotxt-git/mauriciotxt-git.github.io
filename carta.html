@@ -19,13 +19,13 @@
         }
         
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             padding: 60px 40px;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            text-align: center;
+            text-align: left;
         }
         
         .title {
@@ -33,6 +33,7 @@
             color: #8B5A3C;
             margin-bottom: 40px;
             font-weight: 600;
+            text-align: center;
         }
         
         .subtitle {
@@ -40,6 +41,7 @@
             color: #666;
             margin-bottom: 40px;
             font-style: italic;
+            text-align: center;
         }
         
         .back-button {
@@ -58,6 +60,58 @@
             transform: translateY(-2px);
         }
         
+        .letter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .from-to {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .letter-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+        
+        .letter-content p {
+            margin-bottom: 25px;
+            text-indent: 2em;
+        }
+        
+        .letter-footer {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .date {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .signature {
+            font-size: 1.2rem;
+            color: #8B5A3C;
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 padding: 40px 20px;
@@ -66,14 +120,49 @@
             .title {
                 font-size: 2rem;
             }
+            
+            .letter-content {
+                font-size: 1rem;
+                text-align: left;
+            }
+            
+            .letter-content p {
+                text-indent: 1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="title">Carta</h1>
-        <p class="subtitle">Work in progress...</p>
-        <a href="index.html" class="back-button">← Volver al menú</a>
+        
+        <div class="letter-header">
+            <div class="from-to">De: Mauricio Gamboa Villalobos</div>
+            <div class="from-to">Para: María José Lizano Mora</div>
+        </div>
+        
+        <div class="letter-content">
+            <p>Siempre quise hacer esto, el hecho de expresarle lo que siento por usted genuinamente y plasmarlo en algún lugar donde no se borre siempre ha sido algo que siempre he tenido en mente. Gracias a como soy yo siempre ha sido difícil para mi demostrarle lo que siento y lo que me haces sentir, pero de verdad siento que necesito decirle todo, porque no me quiero vivir pensando que nunca le pude decir lo que sentía y lo que me haces sentir realmente, por lo que estoy aquí escribiéndole una carta para poder plasmar mis sentimientos por vos, para que si algún día quieres puedas volver y recordar, puedas ver lo que un tonto una vez te quiso.</p>
+            
+            <p>Todas las historias comienzan por el principio, al menos las que yo conozco y como parte de esta expresión de amor quiero recordar el día en que te conocí, realmente jamás pensé que ese día en la universidad y mucho menos esa persona que me estaba presentando mi amiga se iba convertir en alguien tan especial para mí, pero siempre que lo pienso le doy gracias a la vida y a Dios por permitirme conocerte.</p>
+            
+            <p>Fuiste un rayo de luz en mi vida trajiste a mi vida felicidad y un cumulo de emociones que jamás había sentido, mi vida siempre había sido muy plana con emociones simples pero bonitas, pero cuando tu llegaste a ella puede vivir lo que es sentir algo por una persona en todos los aspectos, yo no esperaba un amor tan repentino, al contrario, yo estaba alejado de las relaciones porque estaba decidido a conocer al amor de mi vida, pero todo fue tan espontaneo y tan lindo que todavía no entiendo como sucedió.</p>
+            
+            <p>No existen palabras, fotografías, videos, ni ninguna evidencia científica que pueda describir lo que me hiciste sentir, nadie jamás podrá entender a Mau y Majo realmente porque ni siquiera yo que pude vivir nuestro amor puedo explicar lo hermoso que fue tenerte en mi vida.</p>
+            
+            <p>Solo me queda darte las gracias por todo lo vivido y ni siquiera sé cómo agradecértelo porque las palabras se quedan cortas, solo quiero que sepas lo mucho que te ame y aun que no pueda dimensionarlo con nada puedo decir con certeza que nunca nadie te va a amar como yo.</p>
+            
+            <p>En fin, para mi María José es la persona que me enseño que realmente el amor existe no solo en las películas, es la persona que me enseño a valorar la compañía, es la persona que me enseño que no importa el momento siempre se le puede sacar una sonrisa a alguien, es la persona que me enseño que realmente hay personas especiales en el mundo, para mi María José es mi persona y agradezco todos los días que haya sido ella y no ninguna otra.</p>
+        </div>
+        
+        <div class="letter-footer">
+            <div class="date">Fecha: 16 de julio del 2025</div>
+            <div class="signature">Con el corazón Mau.</div>
+        </div>
+        
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">← Volver al menú</a>
+        </div>
     </div>
 </body>
 </html>
