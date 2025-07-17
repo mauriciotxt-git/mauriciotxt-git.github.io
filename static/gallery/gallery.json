@@ -1,1 +1,52 @@
-
+[
+  {
+    "src": "static/gallery/maumajo_20250715_7cf72bec.jpeg",
+    "alt": "El reencuentro",
+    "date": "14/07/2025"
+  },
+  {
+    "src": "static/gallery/mauymajo2_20250715_24fd746a.jpeg",
+    "alt": "Sanando",
+    "date": "14/07/2025"
+  },
+  {
+    "src": "static/gallery/mauymajo3_20250715.jpeg",
+    "alt": "Parque de diversiones",
+    "date": "17/07/2025"
+  },
+  {
+    "src": "static/gallery/maumajo4_20250715.jpeg",
+    "alt": "Cuando me llevaste a pasear",
+    "date": "21/08/2022"
+  },
+  {
+    "src": "static/gallery/mauymajo5_20250715.jpeg",
+    "alt": "Durmiendo juntos",
+    "date": "2022"
+  }, 
+  {
+    "src": "static/gallery/maumajo6_20250715.jpeg",
+    "alt": "Me veo increible",
+    "date": "2022"
+  },
+  {
+    "src": "static/gallery/mauymajo7_20250715.jpeg",
+    "alt": "En becas",
+    "date": "2022"
+  },
+  {
+    "src": "static/gallery/mauymajo8_20250715.jpeg",
+    "alt": "Tiendita",
+    "date": "2022"
+  }
+  {
+    "src": "static/gallery/maumajo9_20250715.jpeg",
+    "alt": "En la oficina de audivisuales",
+    "date": "11/08/2022"
+  },
+    {
+    "src": "static/gallery/maumajo10_20250715.jpeg",
+    "alt": "Novios en escalante",
+    "date": "13/04/2023"
+  }
+]
