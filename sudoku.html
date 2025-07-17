@@ -73,6 +73,7 @@
             text-align: center;
             font-family: 'Georgia', 'Times New Roman', serif;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         
         .sudoku-cell:focus {
@@ -80,10 +81,16 @@
             background: #fff8f0;
         }
         
+        .sudoku-cell.selected {
+            background: #fff8f0;
+            outline: 3px solid #A0522D;
+        }
+        
         .sudoku-cell.given {
             background: #f8f4e6;
             color: #8B5A3C;
             font-weight: bold;
+            cursor: default;
         }
         
         .sudoku-cell.error {
@@ -106,8 +113,50 @@
             border-bottom: 2px solid #8B5A3C;
         }
         
+        /* Teclado personalizado */
+        .custom-keyboard {
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 400px;
+        }
+        
+        .key-button {
+            background: #8B5A3C;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .key-button:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .key-button:active {
+            transform: translateY(0);
+        }
+        
+        .key-button.clear-btn {
+            background: #d32f2f;
+            grid-column: span 2;
+        }
+        
+        .key-button.clear-btn:hover {
+            background: #b71c1c;
+        }
+        
         .controls {
-            margin-top: 30px;
+            margin-top: 20px;
             display: flex;
             gap: 15px;
             justify-content: center;
@@ -185,6 +234,16 @@
                 font-size: 1rem;
             }
             
+            .custom-keyboard {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 300px;
+            }
+            
+            .key-button {
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+            
             .controls {
                 flex-direction: column;
                 align-items: center;
@@ -218,6 +277,20 @@
             </div>
         </div>
         
+        <!-- Teclado personalizado -->
+        <div class="custom-keyboard">
+            <button class="key-button" onclick="inputNumber(1)">1</button>
+            <button class="key-button" onclick="inputNumber(2)">2</button>
+            <button class="key-button" onclick="inputNumber(3)">3</button>
+            <button class="key-button" onclick="inputNumber(4)">4</button>
+            <button class="key-button" onclick="inputNumber(5)">5</button>
+            <button class="key-button" onclick="inputNumber(6)">6</button>
+            <button class="key-button" onclick="inputNumber(7)">7</button>
+            <button class="key-button" onclick="inputNumber(8)">8</button>
+            <button class="key-button" onclick="inputNumber(9)">9</button>
+            <button class="key-button clear-btn" onclick="clearSelectedCell()">Borrar</button>
+        </div>
+        
         <div class="controls">
             <button class="control-button" onclick="checkSolution()">Verificar solución</button>
             <button class="control-button" onclick="showHint()">Pista</button>
@@ -229,40 +302,151 @@
     </div>
     
     <script>
-        // Sudoku de dificultad media (puzzle inicial)
-        const initialPuzzle = [
-            [5, 3, 0, 0, 7, 0, 0, 0, 0],
-            [6, 0, 0, 1, 9, 5, 0, 0, 0],
-            [0, 9, 8, 0, 0, 0, 0, 6, 0],
-            [8, 0, 0, 0, 6, 0, 0, 0, 3],
-            [4, 0, 0, 8, 0, 3, 0, 0, 1],
-            [7, 0, 0, 0, 2, 0, 0, 0, 6],
-            [0, 6, 0, 0, 0, 0, 2, 8, 0],
-            [0, 0, 0, 4, 1, 9, 0, 0, 5],
-            [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        // 5 puzzles de sudoku de dificultad media
+        const sudokuPuzzles = [
+            // Puzzle 1
+            [
+                [5, 3, 0, 0, 7, 0, 0, 0, 0],
+                [6, 0, 0, 1, 9, 5, 0, 0, 0],
+                [0, 9, 8, 0, 0, 0, 0, 6, 0],
+                [8, 0, 0, 0, 6, 0, 0, 0, 3],
+                [4, 0, 0, 8, 0, 3, 0, 0, 1],
+                [7, 0, 0, 0, 2, 0, 0, 0, 6],
+                [0, 6, 0, 0, 0, 0, 2, 8, 0],
+                [0, 0, 0, 4, 1, 9, 0, 0, 5],
+                [0, 0, 0, 0, 8, 0, 0, 7, 9]
+            ],
+            // Puzzle 2
+            [
+                [0, 2, 0, 6, 0, 8, 0, 0, 0],
+                [5, 8, 0, 0, 0, 9, 7, 0, 0],
+                [0, 0, 0, 0, 4, 0, 0, 0, 0],
+                [3, 7, 0, 0, 0, 0, 5, 0, 0],
+                [6, 0, 0, 0, 0, 0, 0, 0, 4],
+                [0, 0, 8, 0, 0, 0, 0, 1, 3],
+                [0, 0, 0, 0, 2, 0, 0, 0, 0],
+                [0, 0, 9, 8, 0, 0, 0, 3, 6],
+                [0, 0, 0, 3, 0, 6, 0, 9, 0]
+            ],
+            // Puzzle 3
+            [
+                [0, 0, 0, 0, 0, 0, 6, 8, 0],
+                [0, 0, 0, 0, 0, 3, 0, 0, 0],
+                [7, 0, 0, 0, 9, 0, 5, 0, 0],
+                [5, 7, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 8, 5, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 4, 2],
+                [0, 0, 5, 0, 0, 0, 0, 0, 3],
+                [0, 0, 0, 3, 0, 0, 0, 0, 0],
+                [0, 4, 0, 0, 0, 0, 0, 0, 0]
+            ],
+            // Puzzle 4
+            [
+                [0, 0, 0, 2, 6, 0, 7, 0, 1],
+                [6, 8, 0, 0, 7, 0, 0, 9, 0],
+                [1, 9, 0, 0, 0, 4, 5, 0, 0],
+                [8, 2, 0, 1, 0, 0, 0, 4, 0],
+                [0, 0, 4, 6, 0, 2, 9, 0, 0],
+                [0, 5, 0, 0, 0, 3, 0, 2, 8],
+                [0, 0, 9, 3, 0, 0, 0, 7, 4],
+                [0, 4, 0, 0, 5, 0, 0, 3, 6],
+                [7, 0, 3, 0, 1, 8, 0, 0, 0]
+            ],
+            // Puzzle 5
+            [
+                [0, 0, 6, 0, 0, 0, 0, 1, 4],
+                [0, 0, 0, 0, 0, 0, 0, 0, 2],
+                [0, 0, 0, 0, 0, 1, 0, 0, 8],
+                [0, 0, 5, 4, 0, 6, 0, 0, 0],
+                [0, 8, 0, 0, 0, 0, 0, 4, 0],
+                [0, 0, 0, 2, 0, 7, 5, 0, 0],
+                [1, 0, 0, 7, 0, 0, 0, 0, 0],
+                [6, 0, 0, 0, 0, 0, 0, 0, 0],
+                [5, 4, 0, 0, 0, 0, 7, 0, 0]
+            ]
         ];
         
-        // Solución completa
-        const solution = [
-            [5, 3, 4, 6, 7, 8, 9, 1, 2],
-            [6, 7, 2, 1, 9, 5, 3, 4, 8],
-            [1, 9, 8, 3, 4, 2, 5, 6, 7],
-            [8, 5, 9, 7, 6, 1, 4, 2, 3],
-            [4, 2, 6, 8, 5, 3, 7, 9, 1],
-            [7, 1, 3, 9, 2, 4, 8, 5, 6],
-            [9, 6, 1, 5, 3, 7, 2, 8, 4],
-            [2, 8, 7, 4, 1, 9, 6, 3, 5],
-            [3, 4, 5, 2, 8, 6, 1, 7, 9]
+        // Soluciones correspondientes
+        const sudokuSolutions = [
+            // Solución 1
+            [
+                [5, 3, 4, 6, 7, 8, 9, 1, 2],
+                [6, 7, 2, 1, 9, 5, 3, 4, 8],
+                [1, 9, 8, 3, 4, 2, 5, 6, 7],
+                [8, 5, 9, 7, 6, 1, 4, 2, 3],
+                [4, 2, 6, 8, 5, 3, 7, 9, 1],
+                [7, 1, 3, 9, 2, 4, 8, 5, 6],
+                [9, 6, 1, 5, 3, 7, 2, 8, 4],
+                [2, 8, 7, 4, 1, 9, 6, 3, 5],
+                [3, 4, 5, 2, 8, 6, 1, 7, 9]
+            ],
+            // Solución 2
+            [
+                [1, 2, 3, 6, 7, 8, 9, 4, 5],
+                [5, 8, 4, 2, 3, 9, 7, 6, 1],
+                [9, 6, 7, 1, 4, 5, 3, 2, 8],
+                [3, 7, 2, 4, 6, 1, 5, 8, 9],
+                [6, 1, 5, 9, 8, 2, 1, 7, 4],
+                [4, 9, 8, 7, 5, 3, 6, 1, 2],
+                [8, 3, 6, 5, 2, 7, 4, 9, 1],
+                [2, 4, 9, 8, 1, 4, 2, 3, 6],
+                [7, 5, 1, 3, 9, 6, 8, 5, 7]
+            ],
+            // Solución 3
+            [
+                [2, 5, 9, 1, 3, 4, 6, 8, 7],
+                [4, 8, 1, 6, 5, 3, 2, 7, 9],
+                [7, 6, 3, 2, 9, 8, 5, 1, 4],
+                [5, 7, 4, 9, 1, 2, 3, 6, 8],
+                [1, 3, 2, 4, 8, 5, 7, 9, 6],
+                [9, 8, 6, 3, 7, 1, 4, 5, 2],
+                [6, 1, 5, 8, 4, 7, 9, 2, 3],
+                [8, 9, 7, 5, 2, 6, 1, 4, 5],
+                [3, 4, 8, 7, 6, 9, 8, 3, 1]
+            ],
+            // Solución 4
+            [
+                [4, 3, 5, 2, 6, 9, 7, 8, 1],
+                [6, 8, 2, 5, 7, 1, 4, 9, 3],
+                [1, 9, 7, 8, 3, 4, 5, 6, 2],
+                [8, 2, 6, 1, 9, 5, 3, 4, 7],
+                [3, 7, 4, 6, 8, 2, 9, 1, 5],
+                [9, 5, 1, 7, 4, 3, 6, 2, 8],
+                [5, 1, 9, 3, 2, 6, 8, 7, 4],
+                [2, 4, 8, 9, 5, 7, 1, 3, 6],
+                [7, 6, 3, 4, 1, 8, 2, 5, 9]
+            ],
+            // Solución 5
+            [
+                [3, 2, 6, 8, 7, 9, 1, 5, 4],
+                [4, 1, 8, 5, 6, 3, 9, 7, 2],
+                [7, 5, 9, 4, 2, 1, 6, 3, 8],
+                [2, 3, 5, 4, 8, 6, 3, 9, 1],
+                [9, 8, 1, 3, 5, 2, 4, 6, 7],
+                [6, 7, 4, 2, 9, 7, 5, 8, 3],
+                [1, 9, 2, 7, 3, 8, 8, 4, 6],
+                [6, 4, 7, 1, 4, 5, 2, 1, 9],
+                [5, 6, 3, 9, 1, 4, 7, 2, 8]
+            ]
         ];
         
-        let currentPuzzle = JSON.parse(JSON.stringify(initialPuzzle));
+        let initialPuzzle;
+        let solution;
+        let currentPuzzle;
         let startTime = Date.now();
         let timerInterval;
         let hintsUsed = 0;
         let errorCount = 0;
+        let selectedCell = null;
         
         // Inicializar el juego
         function initGame() {
+            // Seleccionar puzzle aleatorio
+            const randomIndex = Math.floor(Math.random() * sudokuPuzzles.length);
+            initialPuzzle = JSON.parse(JSON.stringify(sudokuPuzzles[randomIndex]));
+            solution = JSON.parse(JSON.stringify(sudokuSolutions[randomIndex]));
+            currentPuzzle = JSON.parse(JSON.stringify(initialPuzzle));
+            
             createGrid();
             startTimer();
         }
@@ -274,78 +458,63 @@
             
             for (let row = 0; row < 9; row++) {
                 for (let col = 0; col < 9; col++) {
-                    const cell = document.createElement('input');
-                    cell.type = 'text';
+                    const cell = document.createElement('div');
                     cell.className = 'sudoku-cell';
-                    cell.maxLength = 1;
                     cell.dataset.row = row;
                     cell.dataset.col = col;
                     
                     if (initialPuzzle[row][col] !== 0) {
-                        cell.value = initialPuzzle[row][col];
+                        cell.textContent = initialPuzzle[row][col];
                         cell.classList.add('given');
-                        cell.readOnly = true;
                     } else {
-                        cell.value = currentPuzzle[row][col] !== 0 ? currentPuzzle[row][col] : '';
+                        cell.textContent = currentPuzzle[row][col] !== 0 ? currentPuzzle[row][col] : '';
+                        cell.addEventListener('click', selectCell);
                     }
                     
-                    cell.addEventListener('input', handleInput);
-                    cell.addEventListener('keydown', handleKeydown);
                     grid.appendChild(cell);
                 }
             }
         }
         
-        // Manejar entrada de números
-        function handleInput(e) {
-            const value = e.target.value;
-            const row = parseInt(e.target.dataset.row);
-            const col = parseInt(e.target.dataset.col);
-            
-            if (value === '' || (value >= '1' && value <= '9')) {
-                currentPuzzle[row][col] = value === '' ? 0 : parseInt(value);
-                validateCell(e.target, row, col, value !== '');
-            } else {
-                e.target.value = '';
-                currentPuzzle[row][col] = 0;
+        // Seleccionar celda
+        function selectCell(e) {
+            // Quitar selección anterior
+            if (selectedCell) {
+                selectedCell.classList.remove('selected');
             }
+            
+            // Seleccionar nueva celda
+            selectedCell = e.target;
+            selectedCell.classList.add('selected');
         }
         
-        // Manejar navegación con teclado
-        function handleKeydown(e) {
-            const row = parseInt(e.target.dataset.row);
-            const col = parseInt(e.target.dataset.col);
+        // Insertar número desde el teclado personalizado
+        function inputNumber(number) {
+            if (!selectedCell || selectedCell.classList.contains('given')) return;
             
-            switch(e.key) {
-                case 'ArrowUp':
-                    if (row > 0) focusCell(row - 1, col);
-                    e.preventDefault();
-                    break;
-                case 'ArrowDown':
-                    if (row < 8) focusCell(row + 1, col);
-                    e.preventDefault();
-                    break;
-                case 'ArrowLeft':
-                    if (col > 0) focusCell(row, col - 1);
-                    e.preventDefault();
-                    break;
-                case 'ArrowRight':
-                    if (col < 8) focusCell(row, col + 1);
-                    e.preventDefault();
-                    break;
-            }
+            const row = parseInt(selectedCell.dataset.row);
+            const col = parseInt(selectedCell.dataset.col);
+            
+            selectedCell.textContent = number;
+            currentPuzzle[row][col] = number;
+            validateCell(selectedCell, row, col, true);
         }
         
-        // Enfocar celda específica
-        function focusCell(row, col) {
-            const cells = document.querySelectorAll('.sudoku-cell');
-            const index = row * 9 + col;
-            cells[index].focus();
+        // Limpiar celda seleccionada
+        function clearSelectedCell() {
+            if (!selectedCell || selectedCell.classList.contains('given')) return;
+            
+            const row = parseInt(selectedCell.dataset.row);
+            const col = parseInt(selectedCell.dataset.col);
+            
+            selectedCell.textContent = '';
+            currentPuzzle[row][col] = 0;
+            selectedCell.classList.remove('error', 'correct');
         }
         
         // Validar celda
         function validateCell(cell, row, col, isNewInput = false) {
-            const value = parseInt(cell.value);
+            const value = parseInt(cell.textContent);
             if (!value) {
                 cell.classList.remove('error', 'correct');
                 return;
@@ -358,7 +527,6 @@
                 cell.classList.remove('correct');
                 cell.classList.add('error');
                 
-                // Solo contar errores cuando es una nueva entrada del usuario
                 if (isNewInput) {
                     errorCount++;
                     updateErrorCounter();
@@ -380,14 +548,12 @@
             clearInterval(timerInterval);
             alert('¡Que mala, soy mejor jij!');
             
-            // Deshabilitar todas las celdas editables
             const cells = document.querySelectorAll('.sudoku-cell:not(.given)');
             cells.forEach(cell => {
-                cell.readOnly = true;
+                cell.style.pointerEvents = 'none';
                 cell.style.backgroundColor = '#f0f0f0';
             });
             
-            // Mostrar mensaje en pantalla también
             const messageEl = document.getElementById('message');
             messageEl.textContent = 'Game Over - Has perdido por 3 errores consecutivos';
             messageEl.className = 'message';
@@ -447,7 +613,7 @@
             if (isComplete && isCorrect) {
                 clearInterval(timerInterval);
                 alert('Siempre has sido muy buena, eso me gustaba de ti');
-                messageEl.textContent = '¡Felicitaciones! todos los perros se parecen a theo';
+                messageEl.textContent = '¡Felicitaciones! Has completado el sudoku correctamente ♡';
                 messageEl.className = 'message success';
                 messageEl.style.display = 'block';
             } else if (!isComplete) {
@@ -470,7 +636,6 @@
                 return;
             }
             
-            // Encontrar una celda vacía
             for (let row = 0; row < 9; row++) {
                 for (let col = 0; col < 9; col++) {
                     if (currentPuzzle[row][col] === 0 && initialPuzzle[row][col] === 0) {
@@ -494,6 +659,7 @@
             currentPuzzle = JSON.parse(JSON.stringify(initialPuzzle));
             errorCount = 0;
             updateErrorCounter();
+            selectedCell = null;
             createGrid();
             document.getElementById('message').style.display = 'none';
         }
