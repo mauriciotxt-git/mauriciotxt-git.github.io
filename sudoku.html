@@ -662,6 +662,11 @@
             selectedCell = null;
             createGrid();
             document.getElementById('message').style.display = 'none';
+            
+            // Reiniciar cronómetro desde cero
+            clearInterval(timerInterval);
+            startTime = Date.now();
+            startTimer();
         }
         
         // Nuevo juego
