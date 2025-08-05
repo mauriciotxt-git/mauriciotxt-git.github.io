@@ -656,10 +656,26 @@
         
         // Limpiar tablero
         function clearBoard() {
+            // Detener el cronómetro actual
+            clearInterval(timerInterval);
+            
+            // Reiniciar variables del juego
             currentPuzzle = JSON.parse(JSON.stringify(initialPuzzle));
             errorCount = 0;
             updateErrorCounter();
             selectedCell = null;
+            
+            // Reiniciar el cronómetro
+            startTime = Date.now();
+            startTimer();
+            
+            // Reactivar las celdas (en caso de que estuvieran deshabilitadas por Game Over)
+            const cells = document.querySelectorAll('.sudoku-cell:not(.given)');
+            cells.forEach(cell => {
+                cell.style.pointerEvents = 'auto';
+                cell.style.backgroundColor = '';
+            });
+            
             createGrid();
             document.getElementById('message').style.display = 'none';
         }
